@@ -1,0 +1,21 @@
+#download and transfer .faa files from IMG into appropriate project folders using cyberduck
+#Create directory to hold/organize all of the .faa files. 
+#within the working directory there needs to be the target .faa sequence file and the program file (code is that found and ran for the hmmsearch command)
+
+#to open the correct environment to run the programs
+  conda activate hgcAB
+  
+# need to use cd (change directory) to open to the correct folders containing necessary data to run program pipeline
+
+# code for running the .faa files with the hmm hgcAB search command pipeline:
+# example from running on bin 01 depth 10
+# note: right clicking pastes copied code
+   hmmsearch -E 1e-50 --tblout bin01_10-hgcA-hits.xls /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_10.faa
+   
+   # note that the hgcA.hmm model needs to be accessible for the code to run, this pathway specifies that the hgcA.hmm model is in the directory HgcAB
+   
+#to convert .out files into more usable and readable csv and comma delineated files:
+  bash ~/data/HgcAB/hmmscan_rough_parse.sh test.parse.out.csv
+  
+ #Note: the way that this command is written, it must be within the same folder as the .out file(s)
+ #Note: if desired, if multiple .out files are within the same folder and the bash script is ran, it will compile all of the .out files and put them into a singular .csv
