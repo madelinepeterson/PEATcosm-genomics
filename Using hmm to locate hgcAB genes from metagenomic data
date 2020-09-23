@@ -10,12 +10,95 @@
 # code for running the .faa files with the hmm hgcAB search command pipeline:
 # example from running on bin 01 depth 10
 # note: right clicking pastes copied code
-   hmmsearch -E 1e-50 --tblout bin01_10-hgcA-hits.xls /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_10.faa
+   hmmsearch -E 1e-50 --tblout bin01_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_10.faa
    
    # note that the hgcA.hmm model needs to be accessible for the code to run, this pathway specifies that the hgcA.hmm model is in the directory HgcAB
    
-#to convert .out files into more usable and readable csv and comma delineated files:
+#to convert .out files into more usable and readable csv and comma delineated files. The output name will need to be changed for each run:
+
   bash ~/data/HgcAB/hmmscan_rough_parse.sh test.parse.out.csv
   
  #Note: the way that this command is written, it must be within the same folder as the .out file(s)
  #Note: if desired, if multiple .out files are within the same folder and the bash script is ran, it will compile all of the .out files and put them into a singular .csv
+
+#If ran together, could create the .out and the .csv in the same steps
+ 
+Bin01
+ hmmsearch -E 1e-50 --tblout bin01_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_30.faa
+  bash ~/data/HgcAB/hmmscan_rough_parse.sh bin01_30hgcAhits.csv
+  
+    hmmsearch -E 1e-50 --tblout bin01_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin01_60hgcAhits.csv
+    
+Bin02
+     hmmsearch -E 1e-50 --tblout bin02_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin02_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin02_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin02_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin02_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin02_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin02_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin02_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin02_60hgcAhits.csv
+    
+Bin05
+     hmmsearch -E 1e-50 --tblout bin05_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin05_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin05_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin05_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin05_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin05_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin05_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin05_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin05_60hgcAhits.csv
+    
+    
+ Bin06
+     hmmsearch -E 1e-50 --tblout bin06_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin06_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin06_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin06_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin06_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin06_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin06_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin06_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin06_60hgcAhits.csv   
+    
+Bin10
+     hmmsearch -E 1e-50 --tblout bin10_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin10_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin10_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin10_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin10_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin10_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin10_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin10_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin10_60hgcAhits.csv    
+    
+Bin11
+    hmmsearch -E 1e-50 --tblout bin11_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin11_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin11_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin11_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin11_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin11_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin11_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin11_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin11_60hgcAhits.csv        
+    
+Bin17
+    hmmsearch -E 1e-50 --tblout bin17_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin17_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin17_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin17_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin17_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin17_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin17_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin17_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin17_60hgcAhits.csv      
+    
+Bin23
+    hmmsearch -E 1e-50 --tblout bin23_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin23_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin23_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_60hgcAhits.csv        
+    
+    
