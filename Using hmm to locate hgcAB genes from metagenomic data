@@ -102,3 +102,12 @@ Bin23
     bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_60hgcAhits.csv        
     
     
+#Concatenates metaG and metaT .faa files into a single file
+  cat *assembled.faa > MetaG_T.faa
+#Selects and cuts the hgcA hit names that came from the metaG .faa files using the hmm from McDaniel(2020)
+  cut -d , -f 1 hgcA_hits_IMG_faa_data.csv > hit_names.txt
+#Converts multi line .faa files for both metaG and metaT into single lines for each sequence entry
+ awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' MetaG_T.faa > MetaG_T_one_line.faa
+#For each hit name resulting from the hmm, match that hit name and pull the sequence information from the corresponding/matching line in the concatenated .faa file
+ for hit in $(cat hit_names.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>hits.fasta
+
