@@ -109,5 +109,5 @@ Bin23
 #Converts multi line .faa files for both metaG and metaT into single lines for each sequence entry
  awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' MetaG_T.faa > MetaG_T_one_line.faa
 #For each hit name resulting from the hmm, match that hit name and pull the sequence information from the corresponding/matching line in the concatenated .faa file
- for hit in $(cat hit_names.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>hits.fasta
+ for hit in $(hit_names.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>hits.fasta
 
