@@ -101,8 +101,8 @@ Bin23
     hmmsearch -E 1e-50 --tblout bin23_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_60.faa
     bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_60hgcAhits.csv        
     
-    
-#Concatenates metaG and metaT .faa files into a single file
+#PULLING HITS FROM METAGENOMES AFTER HMM   
+#Concatenates metaG .faa files into a single file
   cat *assembled.faa > MetaG_T.faa
 #Selects and cuts the hgcA hit names that came from the metaG .faa files using the hmm from McDaniel(2020)
   cut -d , -f 1 hgcA_hits_IMG_faa_data.csv > hit_names.txt
@@ -110,4 +110,29 @@ Bin23
  awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' MetaG_T.faa > MetaG_T_one_line.faa
 #For each hit name resulting from the hmm, match that hit name and pull the sequence information from the corresponding/matching line in the concatenated .faa file
  for hit in $(hit_names.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>hits.fasta
+ 
+ _________________________________________________________________
 
+#RUNNING HMM ON SINGLE CELLS
+#All SC files were concatenated into a single file (all *proteins.faa)
+  cat *proteins.faa > SCG.faa
+#The files were converted into single-line sequence code
+  awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' SCG.faa > SCG_one_line.faa
+#hgcA hmm ran on all SC fasta
+#note: hmm had to be within the working directory, dup_hgcA.hmm is the same hmm, just a copy
+  hmmsearch -E 1e-50 --tblout scg-hgcA-hits.out dup_hgcA.hmm SCG_one_line.faa
+  
+  _________________________________________
+  
+#RUNNING HMM ON metaT_G COMBINATION
+#All SC files were concatenated into a single file 
+  cat *assembled.faa > meta_TG.faa
+  
+#The files were converted into single-line sequence code
+  awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' metaTG.faa > metaTG_one_line.faa
+  
+#hgcA hmm ran on all metaG and metaT fasta
+#note: hmm had to be within the working directory, dup_hgcA.hmm is the same hmm, just a copy
+  hmmsearch -E 1e-50 --tblout metaTG-hgcA-hits.out dup_hgcA.hmm metaTG_one_line.faa
+  
+  
