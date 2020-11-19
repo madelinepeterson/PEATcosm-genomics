@@ -174,3 +174,14 @@ IMCOMPLETE/NON-WORKING CODE
 #if e value threshold is reduced, we obtain more hits
   bash ~/data/HgcAB/hmmscan_rough_parse2.sh Steve_test_HB_all.out Steve_test_HB_all.out.csv
   
+##BUILDING PHYLOGENETIC TREE
+
+#
+  muscle -in meta_TG_one_line.faa -out meta_hgcA_Muscle.fa -phyiout meta_hgcA_phyi.out -physout meta_hgcA_phys.out
+
+
+
+
+
+
+
