@@ -125,7 +125,7 @@ Bin23
   _________________________________________
   
 #RUNNING HMM ON metaT_G COMBINATION
-#All SC files were concatenated into a single file 
+#All metatranscriptomic and metagenomic files were concatenated into a single file 
   cat *assembled.faa > meta_TG.faa
   
 #The files were converted into single-line sequence code
