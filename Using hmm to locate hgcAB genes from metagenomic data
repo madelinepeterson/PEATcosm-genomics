@@ -176,8 +176,34 @@ IMCOMPLETE/NON-WORKING CODE
   
 ##BUILDING PHYLOGENETIC TREE
 
-#
-  muscle -in meta_TG_one_line.faa -out meta_hgcA_Muscle.fa -phyiout meta_hgcA_phyi.out -physout meta_hgcA_phys.out
+#DOWNLOAD NECESSARY PACKAGES TO CREATE A PHYLOGENY ENVIRONMENT
+  conda create -n phylogeny -c bioconda -c conda-forge clustalo quicktree \
+             muscle phyml modeltest-ng fasttree raxml
+             
+#ACTIVATE ENVIRONMENT
+  conda activate phylogeny
+
+#EXTRACT hgcA SEQUENCES USING hgcA hits taken from hmm of meta_
+  for hit in $(cat MetaG_T-names.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > hgcA_hit_sequences.fasta
+
+#PERFORM a muscle alignment with Clustal and output as a stockholm format
+  clustalo -i hgcA_hit_sequences.fasta -o hgcA_hit_sequences.st --outfmt st
+  
+#CONSTRUCT a neighbor joining tree with 1000 bootstraps
+NOTE: screen -RD muscle
+  quicktree -boot 1000 hgcA_hit_sequences.st > clustal_hgcA_tree.nwk
+  
+
+#CREATE A MULTIPLE SEQUENCE ALIGNMENT OF hgcA USING MUSCLE
+  muscle -in hgcA_hit_sequences.fasta -out meta_hgcA_Muscle.fa -phyiout meta_hgcA_phyi.out -physout meta_hgcA_phys.out
+
+#TEST FOR BEST MODEL TO BUILD TREE
+NOTE: screen -RD muscle2
+  modeltest-ng -i meta_hgcA_phys.out -o HSP20_models -t ml -d aa -p 5
+  
+NOTE: ERROR saying there are duplicate sequence headers for the hgcA seqeunces
+  
+#RUN THE BEST MODEL TO BUILD MAXIMUM LIKELIHOOD TREE
 
 
 
