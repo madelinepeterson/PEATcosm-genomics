@@ -205,9 +205,14 @@ NOTE: ERROR saying there are duplicate sequence headers for the hgcA seqeunces
   
 #RUN THE BEST MODEL TO BUILD MAXIMUM LIKELIHOOD TREE
 
+________________________________________________________________________
 
+#RENAMING hgcA metaG Compiled + metaT AND RUNNING MUSCLE 
 
+#PULLING AND CONVERTING NEW NAMES FROM .csv TO .txt LIST
+  cut -d , -f 1 hgcA_all_compiled.csv > hgcA_GT_compiled.txt
 
-
+#CREATE A MULTIPLE SEQUENCE ALIGNMENT OF compiled hgcA USING MUSCLE
+  muscle -in hgcA_hit_sequences.fasta -out meta_hgcA_Muscle.fa -phyiout meta_hgcA_phyi.out -physout meta_hgcA_phys.out
 
 
