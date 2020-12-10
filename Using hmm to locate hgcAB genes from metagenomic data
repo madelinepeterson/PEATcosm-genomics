@@ -212,7 +212,31 @@ ________________________________________________________________________
 #PULLING AND CONVERTING NEW NAMES FROM .csv TO .txt LIST
   cut -d , -f 1 hgcA_all_compiled.csv > hgcA_GT_compiled.txt
 
+NOTE: did not get to this step with the previous files, as it was decided that having the hgcAB combination of protein sequences was more time efficient.
 #CREATE A MULTIPLE SEQUENCE ALIGNMENT OF compiled hgcA USING MUSCLE
   muscle -in hgcA_hit_sequences.fasta -out meta_hgcA_Muscle.fa -phyiout meta_hgcA_phyi.out -physout meta_hgcA_phys.out
+  
+____________________________________
+
+#EXTRACTING A LIST OF CONTIG NAMES FOR THE hgcB proteins
+
+# 
+  cut -d , -f 1 Steve_test_HB_all.out.csv > HgcB-names.txt
+#
+  for hit in $(cat HgcB-names.txt); do grep $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > Contig_ID_of_HgcB_contigs.txt
+NOTE: this did not pull contig info it seems, but just re-pulled the same gene names as before, but with the addition of eliminating the last character from the end of the sequence name.
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
