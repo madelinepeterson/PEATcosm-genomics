@@ -220,14 +220,39 @@ ____________________________________
 
 #EXTRACTING A LIST OF CONTIG NAMES FOR THE hgcB proteins
 
-# 
+#CONVERT LIST TO .TXT
   cut -d , -f 1 Steve_test_HB_all.out.csv > HgcB-names.txt
-#
+#FOR EVERY NAME IN TXT FIND AND PULL CONTIG INFO
   for hit in $(cat HgcB-names.txt); do grep $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > Contig_ID_of_HgcB_contigs.txt
 NOTE: this did not pull contig info it seems, but just re-pulled the same gene names as before, but with the addition of eliminating the last character from the end of the sequence name.
 
-    
+#CORRECTED CODE TO PULL CONTIGS
+  for hit in $(cat HgcB-names.txt); do grep -w $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > Contig_ID_of_HgcB_contigs.txt
 
+____________________________________________________
+
+#USING A/B TXT LIST FROM CONTIG MATCHING, PULL SEQUENCES
+   for hit in $(cat hgcA_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > hgcA_contig-matching.fasta
+   
+   for hit in $(cat hgcB_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > hgcB_contig-matching.fasta
+   
+#CONVERTING THE .CSV FILE INTO A .TXT FILE
+   cut -d , -f 1 hgcAB_combined_sequences.csv > hgcAB_combined_sequences.txt
+   cut -d , -f 1 hgcAB_combined_sequences_nospace.csv > hgcAB_combined_sequences_nospace.txt
+NOTE: this file still contains spaces in the sequences 
+
+#CORRECTED SEQUENCE FILE WITH NO SPACING
+  cut -d , -f 1 hgcAB_combined_sequences_nospace2.csv > hgcAB_combined_sequences_nospace2.txt
+  cut -d , -f 1 hgcAB_combined_sequences_nospace2.csv > hgcAB_combined_sequences_nospace2.fasta
+
+__________________________________________________________
+
+#PERFORM a muscle alignment with Clustal and output as a stockholm format
+  clustalo -i hgcAB_combined_sequences_nospace2.fasta -o hgcAB_combined.st --outfmt st
+  
+#CONSTRUCT a neighbor joining tree with 1000 bootstraps
+NOTE: screen -RD muscle
+  quicktree -boot 1000 hgcA_hit_sequences.st > clustal_hgcA_tree.nwk
 
 
 
