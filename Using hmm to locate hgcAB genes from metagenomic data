@@ -249,12 +249,26 @@ __________________________________________________________
 
 #PERFORM a muscle alignment with Clustal and output as a stockholm format
   clustalo -i hgcAB_combined_sequences_nospace2.fasta -o hgcAB_combined.st --outfmt st
+NOTE: program warning- formatting issues, cannot read file
+
+If you run the command less, which has a weird <U+FEEF> symbol at the beginning
+  less hgcAB_combined_sequences_nospace2.txt
+You can run nano to edit the file on the server  
+  nano hgcAB_combined_sequences_nospace2.txt
+If you delete this space and run: 
+  less hgcAB_combined_sequences_nospace2.txt     that symbol is no longer there
+NOTE: still will not run in clustal
+
+#REMOVING * WITHIN THE SEQUENCES
+  cut -d , -f 1 hgcAB_combined_nospc_noast.csv > hgcAB_combined_nospc_noast.fasta
+  nano hgcAB_combined_nospc_noast.fasta
   
-#CONSTRUCT a neighbor joining tree with 1000 bootstraps
-NOTE: screen -RD muscle
-  quicktree -boot 1000 hgcA_hit_sequences.st > clustal_hgcA_tree.nwk
-
-
+Multiple sequence alignment
+  clustalo -i hgcAB_combined_nospc_noast.fasta -o hgcAB_combined.st --outfmt st
+Building neighbor joining tree
+  quicktree -boot 1000 hgcAB_combined.st > clustal_hgcAB_combined.nwk
+  
+muscle -in hgcAB_combined_sequences_nospace2.fasta -out hgcAB_combined_Muscle.fa -phyiout hgcAB_combined_phyi.out -physout hgcAB_combined_phys.out
 
 
 
