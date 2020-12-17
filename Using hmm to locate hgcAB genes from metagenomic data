@@ -293,7 +293,10 @@ Multiple sequence alignment
     quicktree -boot 1000 McD_combined_hgcAB_nodash.st > McD_combined_hgcAB_nodash.nwk
     
 
-muscle -in hgcAB_combined_sequences_nospace2.fasta -out hgcAB_combined_Muscle.fa -phyiout hgcAB_combined_phyi.out -physout hgcAB_combined_phys.out
+muscle -in McD_combined_hgcAB_nodash.faa -out McD_combined_hgcAB_nodash_MUSCLE.fa -phyiout McD_combined_hgcAB_nodash.out -physout McD_combined_hgcAB_nodash.out
+
+modeltest-ng -i McD_combined_hgcAB_nodash.out -o McD_combined hgcAB_models -t ml -d aa -p 5
+NOTE: can't run- same problem before with the "dupliate names", titles for sequences can only be max 10 characters
 
 
 
