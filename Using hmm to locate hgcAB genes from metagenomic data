@@ -268,12 +268,25 @@ Multiple sequence alignment
 Building neighbor joining tree
   quicktree -boot 1000 hgcAB_combined.st > clustal_hgcAB_combined.nwk
   
+  __________________________________________________________________
+  
 Converting McDaniel .aln file to .txt to combine with PEATcosm data
   cut -d , -f 1 hgcAB-select-sequences-cleaned-fused-root.aln > McD_hgcAB-select-sequences-cleaned-fused-root.txt
 Converting sequences to one line
   awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' McD_hgcAB-select-sequences-cleaned-fused-root.txt > McD_hgcAB-select-sequences-cleaned-fused-root_oneline.txt
   
+Convert newly combined McDaniel and PEATcosm hits into .fasta file
+  cut -d , -f 1 McD_combined_hgcAB.txt > McD_combined_hgcAB.fasta
   
+Create clustal tree for combined data
+  Multiple sequence alignment
+    clustalo -i McD_combined_hgcAB.fasta -o McD_combined_hgcAB.st --outfmt st
+  NOTE: this brings up error stating profile has no leading or trailing residues and will not produce an output in the next step
+    quicktree -boot 1000 McD_combined_hgcAB.st > McD_combined_hgcAB.nwk
+    
+    
+    
+
 muscle -in hgcAB_combined_sequences_nospace2.fasta -out hgcAB_combined_Muscle.fa -phyiout hgcAB_combined_phyi.out -physout hgcAB_combined_phys.out
 
 
