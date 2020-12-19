@@ -291,12 +291,22 @@ Create clustal tree for combined data
 Multiple sequence alignment
     clustalo -i McD_combined_hgcAB_nodash.faa -o McD_combined_hgcAB_nodash.st --outfmt st
     quicktree -boot 1000 McD_combined_hgcAB_nodash.st > McD_combined_hgcAB_nodash.nwk
+
+    DOESNT WORK
+    muscle -in McD_combined_hgcAB_nodash.faa -out McD_combined_hgcAB_nodash_MUSCLE.fa -phyiout McD_combined_hgcAB_nodash.out -physout McD_combined_hgcAB_nodash.out
+    modeltest-ng -i McD_combined_hgcAB_nodash.out -o McD_combined hgcAB_models -t ml -d aa -p 5
+    NOTE: can't run- same problem before with the "dupliate names", titles for sequences can only be max 10 characters   
     
+SOLUTION
+#AFTER RENAMING McDANIEL DATA AND PEATcosm DATA (UNDER 10 CHARACTER)
 
-muscle -in McD_combined_hgcAB_nodash.faa -out McD_combined_hgcAB_nodash_MUSCLE.fa -phyiout McD_combined_hgcAB_nodash.out -physout McD_combined_hgcAB_nodash.out
-
-modeltest-ng -i McD_combined_hgcAB_nodash.out -o McD_combined hgcAB_models -t ml -d aa -p 5
-NOTE: can't run- same problem before with the "dupliate names", titles for sequences can only be max 10 characters
+Convert to faa file
+  cut -d , -f 1 McD_combined_hgcAB_UniqueRenamed.csv > McD_combined_hgcAB_UniqueRenamed.faa
+  
+  #REMOVED HIDDEN CODE AT BEGINNING
+  muscle -in McD_combined_hgcAB_UniqueRenamed2.faa -out McD_combined_hgcAB_UniqueRenamed_MUSCLE.fa -phyiout McD_combined_hgcAB_UniqueRenamed.out -physout McD_combined_hgcAB_UniqueRenamed.out
+  modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa -p 5
+  
 
 
 
