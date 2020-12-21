@@ -291,6 +291,7 @@ Create clustal tree for combined data
 Multiple sequence alignment
     clustalo -i McD_combined_hgcAB_nodash.faa -o McD_combined_hgcAB_nodash.st --outfmt st
     quicktree -boot 1000 McD_combined_hgcAB_nodash.st > McD_combined_hgcAB_nodash.nwk
+    #successful tree
 
     DOESNT WORK
     muscle -in McD_combined_hgcAB_nodash.faa -out McD_combined_hgcAB_nodash_MUSCLE.fa -phyiout McD_combined_hgcAB_nodash.out -physout McD_combined_hgcAB_nodash.out
@@ -311,7 +312,8 @@ Convert to faa file
   modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa
   #NOTE: still aborted
   
-  
+ModelTesting with fastree (only three models)
+  modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_Uniquemodels -t ml -d aa -m WAG,JTT,LG
 
 
 
