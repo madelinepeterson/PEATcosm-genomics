@@ -306,6 +306,11 @@ Convert to faa file
   #REMOVED HIDDEN CODE AT BEGINNING
   muscle -in McD_combined_hgcAB_UniqueRenamed2.faa -out McD_combined_hgcAB_UniqueRenamed_MUSCLE.fa -phyiout McD_combined_hgcAB_UniqueRenamed.out -physout McD_combined_hgcAB_UniqueRenamed.out
   modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa -p 5
+  #NOTE: modeltest aborted
+  Removed last specifications in code in effort to redue amount of memory being utilized
+  modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa
+  #NOTE: still aborted
+  
   
 
 
