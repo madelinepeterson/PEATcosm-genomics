@@ -314,6 +314,13 @@ Convert to faa file
   
 ModelTesting with fastree (only three models)
   modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_Uniquemodels -t ml -d aa -m WAG,JTT,LG
+RESULTS:
+Partition 1/1:
+                         Model         Score        Weight
+----------------------------------------------------------
+       BIC           LG+I+G4+F   312688.6205        1.0000
+       AIC           LG+I+G4+F   306117.2512        1.0000
+      AICc               LG+G4  4252077.2573        1.0000
 
 
 
