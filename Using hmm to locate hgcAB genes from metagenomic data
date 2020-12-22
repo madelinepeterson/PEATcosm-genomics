@@ -304,7 +304,7 @@ SOLUTION
 Convert to faa file
   cut -d , -f 1 McD_combined_hgcAB_UniqueRenamed.csv > McD_combined_hgcAB_UniqueRenamed.faa
   
-  #REMOVED HIDDEN CODE AT BEGINNING
+  #REMOVED HIDDEN CODE AT BEGINNING (thus why input is ..Renamed2.faa)
   muscle -in McD_combined_hgcAB_UniqueRenamed2.faa -out McD_combined_hgcAB_UniqueRenamed_MUSCLE.fa -phyiout McD_combined_hgcAB_UniqueRenamed.out -physout McD_combined_hgcAB_UniqueRenamed.out
   modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa -p 5
   #NOTE: modeltest aborted
@@ -322,6 +322,11 @@ Partition 1/1:
        AIC           LG+I+G4+F   306117.2512        1.0000
       AICc               LG+G4  4252077.2573        1.0000
 
+
+  muscle -in McD_combined_hgcAB_UniqueRenamed2.faa -out McD_combined_hgcAB_UniqueRenamed_MUSCLE.aln 
+
+Running the model to create a tree
+  fasttree -lg -gamma McD_combined_hgcAB_UniqueRenamed_MUSCLE.fa > gamma_McD_combined_hgcAB_fasttree.nwk
 
 
 
