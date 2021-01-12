@@ -327,6 +327,27 @@ Creating an aligment file (aln) for the combined hgcAB sequences
 
 Running the model to create a tree
   fasttree -lg -gamma McD_combined_hgcAB_UniqueRenamed_MUSCLE.aln > gamma_McD_combined_hgcAB_fasttree.nwk
+  
+____________________________________________________________________________________________________
+
+#PULLING SEQUENCES FROM LIST OF hgcA-CONTAINING CONTIGS
+
+for hit in $(cat hgcA_contig_list.txt); do grep -A 1 $ .faa ; done>contig_sequences_hgcA.fasta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
