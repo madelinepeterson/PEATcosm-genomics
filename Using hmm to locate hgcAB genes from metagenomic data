@@ -332,12 +332,14 @@ ________________________________________________________________________________
 
 #PULLING SEQUENCES FROM LIST OF hgcA-CONTAINING CONTIGS
 
-for hit in $(cat hgcA_contig_list.txt); do grep -A 1 $ .faa ; done>contig_sequences_hgcA.fasta
+  for hit in $(cat hgcA_contig_list.txt); do grep -A 1 $ .faa ; done>contig_sequences_hgcA.fasta
 
-
-
-
-
+#COPY ALL .FASTA FILES FROM SUB FOLDERS TO ONE NEW FOLDER
+  find . -name *scaffolds.fasta -exec cp '{}' "/home/mrpeter1/data/HgcAB/scaffolds/cat_scaffolds/" ";"
+  NOTE: https://unix.stackexchange.com/questions/67503/move-all-files-with-a-certain-extension-from-multiple-subdirectories-into-one-di
+  
+#CONCATENATE ALL *SCAFFOLD.FASTA FILES
+  cat /home/mrpeter1/data/HgcAB/scaffolds/cat_scaffolds *scaffolds.faa > all_scaffolds.fasta
 
 
 
