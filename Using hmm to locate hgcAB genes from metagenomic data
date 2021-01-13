@@ -330,9 +330,7 @@ Running the model to create a tree
   
 ____________________________________________________________________________________________________
 
-#PULLING SEQUENCES FROM LIST OF hgcA-CONTAINING CONTIGS
-
-  for hit in $(cat hgcA_contig_list.txt); do grep -A 1 $ .faa ; done>contig_sequences_hgcA.fasta
+PULLING HGCA-CONTAINING SCAFFOLDS
 
 #COPY ALL .FASTA FILES FROM SUB FOLDERS TO ONE NEW FOLDER
   find . -name *scaffolds.fasta -exec cp '{}' "/home/mrpeter1/data/HgcAB/scaffolds/cat_scaffolds/" ";"
@@ -340,7 +338,14 @@ ________________________________________________________________________________
   
 #CONCATENATE ALL *SCAFFOLD.FASTA FILES
   cat /home/mrpeter1/data/HgcAB/scaffolds/cat_scaffolds *scaffolds.faa > all_scaffolds.fasta
+  NOTE: scaffold naming convention contains duplicates from numerical organization
 
+#PULLING SCAFFOLD SEQS FROM BINS INDIVIDUALLY
+
+Bin_01_10
+  for hit in $(cat bin1_10_contigs.csv); do grep -A 1 $hit /home/mrpeter1/data/HgcAB/scaffolds/PEATcosm2014_Bin_63/ >bin1_10_contig_seqs.txt
+  
+  
 
 
 
