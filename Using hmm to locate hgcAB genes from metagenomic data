@@ -306,8 +306,10 @@ Convert to faa file
   
   #REMOVED HIDDEN CODE AT BEGINNING (thus why input is ..Renamed2.faa)
   muscle -in McD_combined_hgcAB_UniqueRenamed2.faa -out McD_combined_hgcAB_UniqueRenamed_MUSCLE.fa -phyiout McD_combined_hgcAB_UniqueRenamed.out -physout McD_combined_hgcAB_UniqueRenamed.out
-  modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa -p 5
+ 
+ modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa -p 5
   #NOTE: modeltest aborted
+  
   Removed last specifications in code in effort to redue amount of memory being utilized
   modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_models -t ml -d aa
   #NOTE: still aborted
@@ -414,24 +416,25 @@ if ($1 ~ /^>/) {
   awk 'FNR==NR { a[">"$1]=$2; next } $1 in a { sub(/>/,">"a[$1]"|",$1)}1' scaffold_hgcA_seq_unique_name_list3.txt scaffold_hgcA_nucleicacid_sequences_one_line2.fasta
   
 SOLUTION
-#CONVERTING FROM CSV TO TXT (old=new format)
+#CONVERTING FROM CSV TO TXT (old=new format) https://community.unix.com/t/how-to-replace-fasta-headers-based-on-the-given-list-txt/380260
+
   cut -d , -f 1 scaffold_hgcA_seq_unique_name_list4.csv > scaffold_hgcA_seq_unique_name_list4.txt
   awk -F= 'FNR==NR {f2[$1]=$2;next} $2 in f2 {$2=f2[$2]}1' scaffold_hgcA_seq_unique_name_list4.txt FS='>' OFS='>' scaffold_hgcA_nucleicacid_sequences_one_line2.fasta > scaffold_unique_name.fasta
 
   _____________________________________________________________________
 
-#RUNNING ALIGNMENT AND BUILDING SIMPLE TREE
-    clustalo -i McD_combined_hgcAB_nodash.faa -o McD_combined_hgcAB_nodash.st --outfmt st
-    quicktree -boot 1000 McD_combined_hgcAB_nodash.st > McD_combined_hgcAB_nodash.nwk
+#RUNNING (SIMPLE) ALIGNMENT AND BUILDING SIMPLE TREE
+    clustalo -i scaffold_unique_name.fasta -o scaffold_unique_name.st --outfmt st
+    quicktree -boot 1000 scaffold_unique_name.st > scaffold_unique_name.nwk
 
-ModelTesting with fastree (only three models)
-  modeltest-ng -i McD_combined_hgcAB_UniqueRenamed.out -o McD_combined_hgcAB_Uniquemodels -t ml -d aa -m WAG,JTT,LG
+#RUNNING MORE HEFTY ALIGNMENT AND CREATING ALIGNMENT FILE (.aln)
+  muscle -in scaffold_unique_name.fasta -out scaffold_unique_name.aln -phyiout scaffold_unique_name.out -physout scaffold_unique_name.out
 
-Creating an aligment file (aln) for the combined hgcAB sequences
-  muscle -in McD_combined_hgcAB_UniqueRenamed2.faa -out McD_combined_hgcAB_UniqueRenamed_MUSCLE.aln 
+ModelTesting with fastree (limited: only three models)
+  modeltest-ng -i scaffold_unique_name.out -o scaffold_unique_name_Uniquemodels -t ml -d aa -m WAG,JTT,LG
 
 Running the model to create a tree
-  fasttree -lg -gamma McD_combined_hgcAB_UniqueRenamed_MUSCLE.aln > gamma_McD_combined_hgcAB_fasttree.nwk
+  fasttree -lg -gamma scaffold_unique_name.aln > gamma_scaffold_unique_name.nwk
 
 
 
