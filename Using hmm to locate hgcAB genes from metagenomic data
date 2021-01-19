@@ -357,15 +357,68 @@ ________________________________________________________________________________
 
 #CHANGING SCAFFOLS SEQUENCE FILE FROM .txt TO .fasta
   cut -d , -f 1 scaffold_hgcA_nucleicacid_sequences.txt > scaffold_hgcA_nucleicacid_sequences.fasta
-
-#CONVERTING SCAFFOLD SEQUENCES INTO SINGLE-LINE
+ 
+  #NON-WORKING COMMMANDS
+  #CONVERTING SCAFFOLD SEQUENCES INTO SINGLE-LINE
   awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' scaffold_hgcA_nucleicacid_sequences.fasta > scaffold_hgcA_nucleicacid_sequences_one_line.fasta
+  awk '{if(NR==1) {print $0} else {if($0 ~ /^>/) {print "\n"$0} else {printf $0}}}' scaffold_hgcA_nucleicacid_sequences.fasta > scaffold_hgcA_nucleicacid_sequences_one_line2.fasta
+
+SOLUTION
+  awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' scaffold_hgcA_nucleicacid_sequences.fasta > scaffold_hgcA_nucleicacid_sequences_one_line.fasta
+#Note:The output of the above command results in a file containing hidden ^M symbols, that can be removed by the following command:
+#REMOVING HIDDEN '^M' IN SEQUENCES
+  sed -e "s/^M//g" scaffold_hgcA_nucleicacid_sequences_one_line.fasta >scaffold_hgcA_nucleicacid_sequences_one_line2.fasta 
 
 #CONVERTING SINGLE-LINE FASTA INTO .txt
-  cut -d , -f 1 scaffold_hgcA_nucleicacid_sequences_one_line.fasta > scaffold_hgcA_nucleicacid_sequences_one_line.txt
+  cut -d , -f 1 scaffold_hgcA_nucleicacid_sequences_one_line2.fasta > scaffold_hgcA_nucleicacid_sequences_one_line2.txt
+  Note: This results in the sequences not falling into single-line form, but can be seen as single line with nano in fasta form
+  cut -d , -f 1 scaffold_hgcA_nucleicacid_sequences_one_line2.fasta > scaffold_hgcA_nucleicacid_sequences_one_line2.csv
 
+ 
 NOTE: Sequence names were given new names under 10 characters. PEATxxx names given to hgcAB sequences will match new PEAT scaffold names, and all other will be given numbers following the last assignment.
 NOTE: PEATxxx names from hgcAB sequences from PEAT001 to PEAT49
+
+#CONVERTING FROM CSV TO TXT
+  cut -d , -f 1 scaffold_hgcA_seq_unique_name_list.csv > scaffold_hgcA_seq_unique_name_list.txt
+
+#NON-WORKING
+ #REPLACING FASTA HEADERS WITH UNIQUE HEADERS (PEATxxx)
+ awk 'FNR==NR {
+    hash[">"$1]=$2;
+    next;}
+if ($1 ~ /^>/) { print ">"hash[$1];} else { print $1;}' scaffold_hgcA_seq_unique_name_list.txt scaffold_newname.fasta
+#NON-WORKING
+#CONVERTING FROM CSV TO TXT
+  cut -d , -f 1 scaffold_hgcA_seq_unique_name_list.csv > scaffold_hgcA_seq_unique_name_list.txt
+  awk 'FNR==NR { a[">"$1]=$2; next } $1 in a { sub(/>/,">"a[$1]"|",$1)}1' scaffold_hgcA_seq_unique_name_list2.txt scaffold_hgcA_nucleicacid_sequences_one_line2.fasta
+#NON-WORKING
+#CONVERTING FROM CSV TO TXT (adding back > at beginning of seq name)
+  cut -d , -f 1 scaffold_hgcA_seq_unique_name_list2.csv > scaffold_hgcA_seq_unique_name_list2.txt
+  awk 'FNR==NR { a[">"$1]=$2; next } $1 in a { sub(/>/,">"a[$1]"|",$1)}1' scaffold_hgcA_seq_unique_name_list2.txt scaffold_hgcA_nucleicacid_sequences_one_line2.fasta
+  
+#NON-WORKING  
+awk 'FNR==NR {
+    hash[">"$1]=$2;
+    next;
+}
+
+if ($1 ~ /^>/) {
+    print ">"hash[$1];
+} else {
+    print $1;
+}' scaffold_hgcA_seq_unique_name_list2.txt scaffold_hgcA_nucleicacid_sequences_one_line2.fasta
+
+#NON-WORKING
+#CONVERTING FROM CSV TO TXT (Putting in format of >New|Old)
+  cut -d , -f 1 scaffold_hgcA_seq_unique_name_list3.csv > scaffold_hgcA_seq_unique_name_list3.txt
+  awk 'FNR==NR { a[">"$1]=$2; next } $1 in a { sub(/>/,">"a[$1]"|",$1)}1' scaffold_hgcA_seq_unique_name_list3.txt scaffold_hgcA_nucleicacid_sequences_one_line2.fasta
+  
+SOLUTION
+#CONVERTING FROM CSV TO TXT (old=new format)
+  cut -d , -f 1 scaffold_hgcA_seq_unique_name_list4.csv > scaffold_hgcA_seq_unique_name_list4.txt
+  awk -F= 'FNR==NR {f2[$1]=$2;next} $2 in f2 {$2=f2[$2]}1' scaffold_hgcA_seq_unique_name_list4.txt FS='>' OFS='>' scaffold_hgcA_nucleicacid_sequences_one_line2.fasta > scaffold_unique_name.fasta
+
+  _____________________________________________________________________
 
 #RUNNING ALIGNMENT AND BUILDING SIMPLE TREE
     clustalo -i McD_combined_hgcAB_nodash.faa -o McD_combined_hgcAB_nodash.st --outfmt st
