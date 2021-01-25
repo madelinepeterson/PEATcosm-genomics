@@ -183,7 +183,7 @@ IMCOMPLETE/NON-WORKING CODE
 #ACTIVATE ENVIRONMENT
   conda activate phylogeny
 
-#EXTRACT hgcA SEQUENCES USING hgcA hits taken from hmm of meta_
+#EXTRACT hgcA SEQUENCES USING hgcA hits taken from hmm of meta_GT (197/200 total hgcA hits)
   for hit in $(cat MetaG_T-names.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > hgcA_hit_sequences.fasta
 
 #PERFORM a muscle alignment with Clustal and output as a stockholm format
@@ -425,16 +425,65 @@ SOLUTION
 
 #RUNNING (SIMPLE) ALIGNMENT AND BUILDING SIMPLE TREE
     clustalo -i scaffold_unique_name.fasta -o scaffold_unique_name.st --outfmt st
+ NOTE: alignment aborted
     quicktree -boot 1000 scaffold_unique_name.st > scaffold_unique_name.nwk
 
 #RUNNING MORE HEFTY ALIGNMENT AND CREATING ALIGNMENT FILE (.aln)
   muscle -in scaffold_unique_name.fasta -out scaffold_unique_name.aln -phyiout scaffold_unique_name.out -physout scaffold_unique_name.out
+NOTE: alignment aborted
 
-ModelTesting with fastree (limited: only three models)
-  modeltest-ng -i scaffold_unique_name.out -o scaffold_unique_name_Uniquemodels -t ml -d aa -m WAG,JTT,LG
+________________________________________________________________________
+Correcting for initial incomplete lists
+_________________________________________________________________________
 
-Running the model to create a tree
-  fasttree -lg -gamma scaffold_unique_name.aln > gamma_scaffold_unique_name.nwk
+#creating 200 complete hgcA list
+
+____________________________________________________________________
+
+#CORRECTED AB SEQUENCE MATCHES
+#converting csv lists to txt
+ cut -d , -f 1 corrected_hgcA_hits_contig-matching.csv > corrected_hgcA_hits_contig-matching.txt
+ cut -d , -f 1 corrected_hgcB_hits_contig-matching.csv > corrected_hgcB_hits_contig-matching.txt
+ 
+#USING CORRECTED A/B TXT LIST FROM CONTIG MATCHING, PULL GENE SEQUENCES
+   for hit in $(cat corrected_hgcA_hits_contig-matching.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done > corrected_hgcA_contig-matching2.fasta
+   for hit in $(cat corrected_hgcB_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > corrected_hgcB_contig-matching.fasta
+   
+ ___________________________________________________________________________
+
+#CORRECTED ALL 200 hgcA hits (181 G, 19 T)
+   cut -d , -f 1 corrected_all200_hgcA_hits.csv > corrected_all200_hgcA_hits.txt
+
+  for hit in $(cat corrected_all200_hgcA_hits.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done > corrected_all200_hgcA_hits.fasta
+__________________________________________________________________________
+
+#COMBINING McDaniel hgcA sequence list with PEAT sequence list
+  cut -d , -f 1 McDaniel_hgcA_sequences.fasta > McDaniel_hgcA_sequences.txt
+
+_______________________________________________________________________________
+
+#RENAMING hgcA with UNIQUE NAMES (PEATxxx)
+
+#EXTRACT hgcA SEQUENCES USING hgcA hits taken from hmm of metaG + metaT from metaGT
+  for hit in $(cat MetaG_T-names.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > hgcA_hit_sequences174.fasta
+
+  cut -d , -f 1 hgcA_hit_sequences174.fasta > hgcA_hit_sequences.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
