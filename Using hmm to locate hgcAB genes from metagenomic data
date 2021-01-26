@@ -436,8 +436,38 @@ ________________________________________________________________________
 Correcting for initial incomplete lists
 _________________________________________________________________________
 
-#creating 200 complete hgcA list
+#NOTE: .txt files need to be in the proper format, 
+File type can be checked using the command nano filename.txt 
+  1) When ever making an input text file, you could make the text file on you PC, then on the command line type in nano nameoffile.  This will open up the nano text editor.  You can then paste the contents of your text file and then save the file. This will format the text file properly.
+  2) Convert using Notepad++ or dos2unix foo.txt command
 
+#create txt file using nano and pasting in data 
+  nano corrected_hgcA_contigs200.txt
+  
+#pull all gene ID names from hgcA-containing contigs
+  for hit in $(cat corrected_hgcA_contigs200.txt); do grep $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 9| sed -n 's/.*locus_tag=//p'| cut -d ';' -f 1; done > corrected200_gene_ID_HgcA-contigs_hits.txt
+#USING the list of contig names, pull all the gene sequences from the identified contigs
+  for hit in $(cat corrected200_gene_ID_HgcA-contigs_hits.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>corrected200_hgcAcontigs_all_genes.fasta
+screen -r Bhmm
+________
+May not use this:
+
+#creating 200 complete hgcA list
+  cut -d , -f 1 corrected_hgcA_contigs200.csv > corrected_hgcA_contigs200.txt
+  
+#pull all gene ID names from hgcA-containing contigs
+  for hit in $(cat corrected_hgcA_contigs200.txt); do grep $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 9| sed -n 's/.*locus_tag=//p'| cut -d ';' -f 1; done > corrected200_gene_ID_HgcA-contigs_hits.txt
+#USING the list of contig names, pull all the gene sequences from the identified contigs
+  for hit in $(cat corrected200_gene_ID_HgcA-contigs_hits.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>corrected200_contig_all_genes2.fasta
+  
+#search above list of genes with hgcB hmm
+ hmmsearch -E 1e-50 --tblout corrected200_contig_all_genes.out hgcB.HMM corrected200_contig_all_genes2.fasta
+ 
+#CONVERT .out HITS TO CSV
+#if e value threshold is reduced in hmmsearch step, we obtain more hits
+  bash ~/data/HgcAB/hmmscan_rough_parse2.sh corrected200_contig_all_genes.out corrected200_contig_all_genes.csv
+
+ 
 ____________________________________________________________________
 
 #CORRECTED AB SEQUENCE MATCHES
@@ -446,7 +476,7 @@ ____________________________________________________________________
  cut -d , -f 1 corrected_hgcB_hits_contig-matching.csv > corrected_hgcB_hits_contig-matching.txt
  
 #USING CORRECTED A/B TXT LIST FROM CONTIG MATCHING, PULL GENE SEQUENCES
-   for hit in $(cat corrected_hgcA_hits_contig-matching.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done > corrected_hgcA_contig-matching2.fasta
+   for hit in $(cat corrected_hgcA_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > corrected_hgcA_contig-matching2.fasta
    for hit in $(cat corrected_hgcB_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > corrected_hgcB_contig-matching.fasta
    
  ___________________________________________________________________________
@@ -454,7 +484,7 @@ ____________________________________________________________________
 #CORRECTED ALL 200 hgcA hits (181 G, 19 T)
    cut -d , -f 1 corrected_all200_hgcA_hits.csv > corrected_all200_hgcA_hits.txt
 
-  for hit in $(cat corrected_all200_hgcA_hits.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done > corrected_all200_hgcA_hits.fasta
+  for hit in $(cat corrected_all200_hgcA_hits.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > corrected_all200_hgcA_hits.fasta
 __________________________________________________________________________
 
 #COMBINING McDaniel hgcA sequence list with PEAT sequence list
