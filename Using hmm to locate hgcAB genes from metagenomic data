@@ -508,51 +508,77 @@ NOTE: Need to rename sequences to PEATxxx in order to run muscle
 #File named corrected200_PEAT_hgcA_sequences.fasta
 
 Creating an aligment file (aln) for the combined PEAT hgcA sequences
+fasta file was created and saved in MegaX as a .fasta file with new PEAT names and was able to run through muscle (corrected_PEAT_hgcA_sequences_MX.fasta)
   conda activate phylogeny
-  muscle -in corrected200_PEAT_hgcA_sequences.fasta -out corrected200_PEAT_hgcA_sequences.aln -phyiout corrected200_PEAT_hgcA_sequences.out -physout corrected200_PEAT_hgcA_sequences.out
+  #remove space at beginning of file
+  muscle -in corrected200_PEAT_hgcA_sequences_nospace.fasta -out corrected200_PEAT_hgcA_sequences2.aln 
   
 ModelTesting with fastree (only three models)
-  modeltest-ng -i corrected200_hgcA_gene_sequences.outt -o corrected181_hgcA_hits -t ml -d aa -m WAG,JTT,LG
+  modeltest-ng -i corrected200_PEAT_hgcA_sequences.out -o corrected200_hgcA_hits -t ml -d aa -m WAG,JTT,LG
+  
+Summary:
+
+Partition 1/1:
+                         Model         Score        Weight
+----------------------------------------------------------
+       BIC          WAG+I+G4+F    57043.8890        1.0000
+       AIC          WAG+I+G4+F    55317.9460        1.0000
+      AICc               LG+G4    61014.8019        0.5683
+
+
 
 Running the model to create a tree
-  fasttree -lg -gamma .aln > corrected_181_hgcA_hits.nwk
+  fasttree -wag -gamma corrected200_PEAT_hgcA_sequences2.aln > corrected_200_hgcA_hits2.nwk
+  
 
 ___________________________________________________________________________________
-#CORRECTED AB COMBINED TREE
+#CORRECTED AB COMBINED TREE (LIMITED 30 AB combined)
 
-#File corrected McD_hgcAB_combined created in nano: corrected_McD_hgcAB_combined.fasta
+#File corrected McD_hgcAB_combined created in nano: corrected_McD_hgcAB_combined_MX.fasta
+All * were removed
 
 Creating an aligment file (aln) for the combined PEAT hgcA sequences
   conda activate phylogeny
-  muscle -in corrected200_hgcA_gene_sequences.fasta -out corrected200_hgcA_gene_sequences.aln -phyiout corrected200_hgcA_gene_sequences.out -physout corrected200_hgcA_gene_sequences.out
+  muscle -in corrected_McD_hgcAB_combined_MX.fasta -out corrected_McD_hgcAB_combined_MX.aln 
+  muscle -in corrected_McD_hgcAB_combined_MX.fasta -phyiout corrected_McD_hgcAB_combined_MX.out -physout corrected_McD_hgcAB_combined_MX.out
   
 ModelTesting with fastree (only three models)
-  modeltest-ng -i corrected200_hgcA_gene_sequences.outt -o corrected181_hgcA_hits -t ml -d aa -m WAG,JTT,LG
+  modeltest-ng -i corrected_McD_hgcAB_combined_MX.out -o corrected_McD_hgcAB_modeltest -t ml -d aa -m WAG,JTT,LG
+
+Summary:
+
+Partition 1/1:
+                         Model         Score        Weight
+----------------------------------------------------------
+       BIC           LG+I+G4+F   311179.8044        1.0000
+       AIC           LG+I+G4+F   304856.2569        1.0000
+      AICc               LG+G4  4040227.1846        1.0000
+
+
 
 Running the model to create a tree
-  fasttree -lg -gamma .aln > corrected_181_hgcA_hits.nwk
+  fasttree -lg -gamma corrected_McD_hgcAB_combined_MX.aln  > corrected_McD_hgcAB_combined_tree.nwk
+Removed spaves in name
+  fasttree -lg -gamma corrected_McD_hgcAB_combined_MX_aln.txt  > corrected_McD_hgcAB_combined_tree.nwk
 
+____________________________________________________________________________________________________
 
+#CORRECTED (ALL 70) AB SEQS COMBINED
 
+#File corrected McD_hgcAB_combined created in nano: corrected_70_McD_hgcAB_combined_MX.fasta
+All * were removed and spaces in sequence names removed
 
-
-
-
-
-
-
-
-#CORRECTED AB SEQUENCE MATCHES
-#converting csv lists to txt
- cut -d , -f 1 corrected_hgcA_hits_contig-matching.csv > corrected_hgcA_hits_contig-matching.txt
- cut -d , -f 1 corrected_hgcB_hits_contig-matching.csv > corrected_hgcB_hits_contig-matching.txt
- 
-#USING CORRECTED A/B TXT LIST FROM CONTIG MATCHING, PULL GENE SEQUENCES
-   for hit in $(cat corrected_hgcA_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > corrected_hgcA_contig-matching2.fasta
-   for hit in $(cat corrected_hgcB_hits_contig-matching.txt); do grep -A 1 $hit meta_TG_one_line.faa ; done > corrected_hgcB_contig-matching.fasta
-   
-
-
+Creating an aligment file (aln) for the combined PEAT hgcA sequences
+  conda activate phylogeny
+  muscle -in corrected_70_McD_hgcAB_combined_MX.fasta -out corrected_70_McD_hgcAB_combined_MX.aln 
+  muscle -in corrected_70_McD_hgcAB_combined_MX.fasta -phyiout corrected_70_McD_hgcAB_combined_MX.out -physout corrected_70_McD_hgcAB_combined_MX.out
+  
+  Running the model to create a tree
+  fasttree -lg -gamma corrected_70_McD_hgcAB_combined_MX.aln  > corrected_70_McD_hgcAB_combined_tree.nwk
+  
+ModelTesting with fastree (only three models)
+  modeltest-ng -i corrected_70_McD_hgcAB_combined_MX.out -o corrected_70_McD_hgcAB_modeltest -t ml -d aa -m WAG,JTT,LG 
+  
 
 
 
