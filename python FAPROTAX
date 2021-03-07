@@ -1,0 +1,26 @@
+#download help options: https://anthonydebarros.com/2018/06/21/setting-up-python-in-windows-10/
+#downloaded newest version of python in METAdata file "python"
+
+#Downloaded PyCharm into the METAdata "python" file, directed new projects to be saved METAdata>python>Pycharm, new environment to be saved METAdata>python>Pycharm>venv
+#base interpreter is python.exe within file METAdata>python
+
+#Youtube for how to save and run python scripts using the command line
+https://www.youtube.com/watch?v=Qi28uPKaH_A
+
+#Helpful page for downloading modules into python
+https://stackoverflow.com/questions/7818811/import-error-no-module-named-numpy
+
+#CONVERTING TSV FILE INTO FAPROTAX-READABLE 
+  import os
+  
+  collapse_table.py -i faprotax_table1.tsv -o function_table1.tsv -g FAPROTAX.txt -d "taxonomy" -c "#" -v
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
