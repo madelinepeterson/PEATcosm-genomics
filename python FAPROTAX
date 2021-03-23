@@ -15,6 +15,15 @@ https://stackoverflow.com/questions/7818811/import-error-no-module-named-numpy
   
   collapse_table.py -i faprotax_table1.tsv -o function_table1.tsv -g FAPROTAX.txt -d "taxonomy" -c "#" -v
   
+python collapse_table.py -i FAPROTAX_table_cluster_column.txt --row_names_are_in_column 1 -o function_table_cluster.tsv -g FAPROTAX.txt -d "taxonomy" -r report_cluster.txt
+
+python collapse_table.py -i FAPROTAX_table_cluster_column.txt  -o function_table_cluster_column.tsv -g FAPROTAX.txt  -d "taxonomy" --row_names_are_in_column 0 -r report_cluster2.txt
+ERROR: Unknown column '0' specified for row names
+
+python collapse_table.py -i FAPROTAX_table_cluster_row_names.txt -o function_table_cluster_column2.tsv -g FAPROTAX.txt -d "taxonomy" --row_names_are_in_column 0 -r report_cluster3.txt
+ERROR: Unknown column '0' specified for row names
+
+  
   
   
   
