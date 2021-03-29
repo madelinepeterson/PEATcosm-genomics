@@ -40,10 +40,11 @@ ERROR: Unknown column '0' specified for row names
 #Running newly cluster-labeled taxonomy table (txt here are tab-delimited txt)
   conda activate qiime1
   python collapse_table.py -i faprotax_table2_newname.txt -o function_table3.tsv -g FAPROTAX.txt -d "taxonomy" -r report3.txt
-
+  python collapse_table.py -i faprotax_table2_newname.tsv -o function_table4.tsv -g FAPROTAX.txt -d "taxonomy" -r report4.txt
+  #BOTH RESULT in table with missing values
   
-  
-  
+  #table containing zeros for blanks (previous two input tables contained blanks)
+  python collapse_table.py -i FAPROTAX_table3_newname.txt -o function_table5.tsv -g FAPROTAX.txt -d "taxonomy" -r report5.txt
   
   
   
