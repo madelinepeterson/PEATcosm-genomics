@@ -23,7 +23,24 @@ ERROR: Unknown column '0' specified for row names
 python collapse_table.py -i FAPROTAX_table_cluster_row_names.txt -o function_table_cluster_column2.tsv -g FAPROTAX.txt -d "taxonomy" --row_names_are_in_column 0 -r report_cluster3.txt
 ERROR: Unknown column '0' specified for row names
 
+##Trying to add cluster ID’s to output
+#All Failed
+python collapse_table.py -i FAPROTAX_table_cluster_column.txt --row_names_are_in_column 1 -o function_table_cluster.tsv -g FAPROTAX.txt -d "taxonomy" -r report_cluster.txt
+
+python collapse_table.py -i FAPROTAX_table_cluster_column.txt  -o function_table_cluster_column.tsv -g FAPROTAX.txt  -d "taxonomy" --row_names_are_in_column 0 -r report_cluster2.txt
+
+python collapse_table.py -i FAPROTAX_table_cluster_row_names.txt -o function_table_cluster_column2.tsv -g FAPROTAX.txt -d "taxonomy" --row_names_are_in_column 0 -r report_cluster3.txt
+ERROR: Unknown column '0' specified for row names
+
+
+##Following code was ran in putty:
+  conda activate qiime1
+  python collapse_table.py -i faprotax_table1.tsv -o function_table2.tsv -g FAPROTAX.txt -d "taxonomy" -r report.txt
   
+#Running newly cluster-labeled taxonomy table (txt here are tab-delimited txt)
+  conda activate qiime1
+  python collapse_table.py -i faprotax_table2_newname.txt -o function_table3.tsv -g FAPROTAX.txt -d "taxonomy" -r report3.txt
+
   
   
   
