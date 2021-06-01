@@ -1,0 +1,159 @@
+ ##RUNNING HMM ON ALL SAMPLES INDIVIDUALLY
+  
+  Bin01 
+  hmmsearch -E 1e-50 --tblout bin01_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_10.faa
+#to convert .out files into more usable and readable csv and comma delineated files. The output name will need to be changed for each run:
+  bash ~/data/HgcAB/hmmscan_rough_parse.sh test.parse.out.csv
+ hmmsearch -E 1e-50 --tblout bin01_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_30.faa
+  bash ~/data/HgcAB/hmmscan_rough_parse.sh bin01_30hgcAhits.csv
+ hmmsearch -E 1e-50 --tblout bin01_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin01_60.faa
+  bash ~/data/HgcAB/hmmscan_rough_parse.sh bin01_60hgcAhits.csv
+  
+ Bin02
+     hmmsearch -E 1e-50 --tblout bin02_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin02_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin02_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin02_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin02_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin02_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin02_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin02_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin02_60hgcAhits.csv
+    
+Bin05
+     hmmsearch -E 1e-50 --tblout bin05_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin05_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin05_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin05_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin05_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin05_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin05_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin05_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin05_60hgcAhits.csv
+    
+Bin06
+     hmmsearch -E 1e-50 --tblout bin06_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin06_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin06_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin06_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin06_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin06_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin06_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin06_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin06_60hgcAhits.csv   
+    
+Bin10
+     hmmsearch -E 1e-50 --tblout bin10_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin10_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin10_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin10_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin10_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin10_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin10_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin10_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin10_60hgcAhits.csv    
+    
+Bin11
+    hmmsearch -E 1e-50 --tblout bin11_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin11_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin11_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin11_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin11_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin11_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin11_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin11_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin11_60hgcAhits.csv   
+    
+Bin17
+    hmmsearch -E 1e-50 --tblout bin17_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin17_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin17_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin17_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin17_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin17_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin17_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin17_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin17_60hgcAhits.csv      
+    
+Bin23
+    hmmsearch -E 1e-50 --tblout bin23_10-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_10.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_10hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin23_30-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_30.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_30hgcAhits.csv
+    
+    hmmsearch -E 1e-50 --tblout bin23_60-hgcA-hits.out /data/home/mrpeter1/HgcAB/hgcA.hmm bin23_60.faa
+    bash ~/data/HgcAB/hmmscan_rough_parse.sh bin23_60hgcAhits.csv        
+    
+
+##PULLING HITS FROM METAGENOMES AFTER HMM   
+#Concatenates metaG .faa files into a single file
+  cat *assembled.faa > MetaG_T.faa
+#Selects and cuts the hgcA hit names that came from the metaG .faa files using the hmm from McDaniel et al. (2020)
+  cut -d , -f 1 hgcA_hits_IMG_faa_data.csv > hit_names.txt
+#Converts multi-line .faa files for both metaG and metaT into single lines for each sequence entry
+ awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' MetaG_T.faa > MetaG_T_one_line.faa
+#For each gene hit name resulting from the hmm, match that hit name and pull the sequence information from the corresponding/matching line in the concatenated .faa file
+ for hit in $(hit_names.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>hits.fasta
+ 
+##RUNNING HMM ON metaT_G COMBINATION (CONCATENATED FILE OF ALL GENOMIC+METATRANSCRIPTOMIC DATA)
+#All metatranscriptomic and metagenomic files concatenated into a single file 
+  cat *assembled.faa > meta_TG.faa
+  
+#The files were converted into single-line sequence code
+  awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' meta_TG.faa > meta_TG_one_line.faa
+  
+#hgcA hmm ran on all metaG+metaT fasta
+#note: hmm had to be within the working directory, dup_hgcA.hmm is the same hmm, just a copy
+  hmmsearch -E 1e-50 --tblout meta_TG-hgcA-hits.out hgcA_dup.hmm meta_TG_one_line.faa
+
+#converting the hits from .out to .csv for readability
+#note: the hmmscan command is in the wider HgcAB
+  bash ~/data/HgcAB/hmmscan_rough_parse2.sh meta_TG-hgcA-hits.out meta_TG-hgcA-hits-out.csv
+  
+#Pulling hit names from the csv and creating a .txt list
+  cut -d , -f 1 meta_TG-hgcA-hits-out.csv > MetaG_T-names.txt
+  
+  
+##EXTRACTING hgcB GENE HITS
+#NOTE: before extraction, .txt files need to be in the proper format, as some files contain hidden characters that need to be manually removed.
+File type can be checked using the command nano filename.txt 
+  1) When ever making an input text file, you could make the text file on you PC, then on the command line type in nano nameoffile.  This will open up the nano text editor.  You can then paste the contents of your text file and then save the file. This will format the text file properly.
+  2) Convert using Notepad++ or " dos2unix foo.txt " command
+
+#create a .txt file using nano and pasting in data to create a file 
+  nano corrected_hgcA_contigs200.txt
+  
+#pull all gene ID names from hgcA-containing contigs
+  for hit in $(cat corrected_hgcA_contigs200.txt); do grep $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 9| sed -n 's/.*locus_tag=//p'| cut -d ';' -f 1; done > corrected200_gene_ID_HgcA-contigs_hits.txt
+#USING the list of all hgcA gene names, pull all gene sequences from the identified contigs
+  for hit in $(cat corrected200_gene_ID_HgcA-contigs_hits.txt); do grep -A 1 $hit MetaG_T_one_line.faa ; done>corrected200_hgcAcontigs_all_genes.fasta
+  NOTE: the above .fasta contains additional characters -- between every ~15 entries that need to be removed manually in the following step
+
+#removing -- characters from file
+ sed -e "s/--//g" corrected200_hgcAcontigs_all_genes.fasta >corrected200_hgcAcontigs_all_genes_nodash.fasta
+ #NOTE: used grep . file.txt command to remove empty lines
+
+#search above list of genes with hgcB hmm code to isolate and extract hgcB genes
+  hmmsearch -E 1e-25 --tblout corrected200_hgcB_genes.out hgcB.HMM corrected200_hgcAcontigs_all_genes_nodash.fasta
+  NOTE: original 1e-50 was too strict a criteria and came back with no hits, lowering threshold to 25 resulted in 92 hit matches above the threshold
+  NOTE: this resulted in duplicate hits within that above-mentioned 92 hit matches, where hit is listed more than once for a number of sequences. The following lines of code remove and test the output of the hgcB HMM with removal of empty lines (formatting issue)
+#re-ran with file with removal of empty lines
+  hmmsearch -E 1e-25 --tblout corrected200_hgcB_genes2.out hgcB.HMM corrected200_hgcAcontigs_all_genes_nodash.fasta
+  NOTE: no difference in output (still resulted in duplicate gene hits. 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
