@@ -131,13 +131,37 @@ File type can be checked using the command nano filename.txt
 #search above list of genes with hgcB hmm code to isolate and extract hgcB genes
   hmmsearch -E 1e-25 --tblout corrected200_hgcB_genes.out hgcB.HMM corrected200_hgcAcontigs_all_genes_nodash.fasta
   NOTE: original 1e-50 was too strict a criteria and came back with no hits, lowering threshold to 25 resulted in 92 hit matches above the threshold
-  NOTE: this resulted in duplicate hits within that above-mentioned 92 hit matches, where hit is listed more than once for a number of sequences. The following lines of code remove and test the output of the hgcB HMM with removal of empty lines (formatting issue)
-#re-ran with file with removal of empty lines
-  hmmsearch -E 1e-25 --tblout corrected200_hgcB_genes2.out hgcB.HMM corrected200_hgcAcontigs_all_genes_nodash.fasta
-  NOTE: no difference in output (still resulted in duplicate gene hits. 
+  NOTE: this resulted in duplicate hits within that above-mentioned 92 hit matches, where hit is listed more than once for a number of sequences. Duplicates were removed manually resulting in 70 unique hgcB gene hits)
+
+#CONVERT .out HITS TO CSV
+  bash ~/data/HgcAB/hmmscan_rough_parse2.sh corrected200_hgcB_genes.out corrected200_hgcB_genes.csv
+  
+##EXTRACTING LIST OF CONTIG NAMES FOR THE hgcB proteins
+#using nano, paste new hgcB hit names into creation of new .txt file
+  corrected200_hgcB_names.txt
+#FOR EVERY NAME IN .TXT FILE, FIND AND PULL CORRESPONDING CONTIG INFORMATION
+  for hit in $(cat corrected200_hgcB_names.txt); do grep $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > corrected_contig_ID_of_HgcB_contigs.txt
+#DIFFERENT CODE TO PULL CONTIGS (secondary code changes formatting)
+  for hit in $(cat corrected200_hgcB_names.txt); do grep -w $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > corrected_contig_ID_of_HgcB_contigs2.txt
+
+##ALTERNATIVE CODE FOR hgcB EXTRACTION. This code solves the problem of the previous code and removes duplicates, resulting in the same 70 unique hgcB gene hits.
+
+for hit in $(cat corrected_hgcA_contigs200.txt); do echo $hit; grep -w -c $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff; done > test_Count_of_genes_on_HgcA_contigs.txt
+for hit in $(cat corrected_hgcA_contigs200.txt); do grep -w $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 9| sed -n 's/.*locus_tag=//p'| cut -d ';' -f 1; done > test_MetaG_T_gene_ID_HgcA-contigs_hits.txt
+for hit in $(cat test_MetaG_T_gene_ID_HgcA-contigs_hits.txt); do grep -w -A 1 $hit MetaG_T_one_line.faa ; done>test_MetaG_T-contig_hits.fasta
+sed ':a;N;$!ba;s/\n--\n/\n/g' test_MetaG_T-contig_hits.fasta > test_MetaG_T-contig_hits2.fasta
+
+hmmsearch -E 1e-30 --tblout test_MetaG_T-hgcB-hits.out hgcB.HMM test_MetaG_T-contig_hits2.fasta
+bash ~/data/HgcA/hmmscan_rough_parse2.sh test_MetaG_T-hgcB-hits.out test_MetaG_T-hgcB-hits-out.csv
+
+#pull amino acid sequences for the hgcB gene hits from the list of hgcB full IDs
+for hit in $(cat test_hgcB-names.txt); do grep -w -A 1 $hit test_MetaG_T-contig_hits2.fasta ; done>test_hgcB-hits.fasta
+
+#Pull the contig ID for the hgcB hits using full ID
+  for hit in $(cat test_hgcB-names.txt); do grep -w $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > test_Contig_ID_of_HgcB_contigs.txt
     
     
-    
+
     
     
     
