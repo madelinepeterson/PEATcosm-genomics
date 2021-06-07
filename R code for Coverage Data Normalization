@@ -1,0 +1,265 @@
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+library(DESeq2)
+library(tidyverse)
+setwd("/Volumes/Seagate_Backup_Plus_Drive/Maddy_HgcA/")
+test<-read.table(file = "1108417.scaffolds2.cov",header=T,)
+test2<-read.table(file = "1108416.scaffolds2.cov",header=T)
+test3<-read.table(file = "1108415.scaffolds.cov",header=T)
+test1_n<-test[,1:2]
+test2_n<-test2[,1:2]
+test3_n<-test3[,1:2]
+new<-left_join(test2_n,test1_n,by="ID")
+new2<-left_join(test3_n,new,by="ID")
+rownames(new2)<-new2$ID
+new2<-new2[,-1]
+new2<-new2 %>% replace(is.na(.),0)
+
+tail(test2_n)
+meta<-read.csv(file = "metadata.csv",header=T)
+
+dds<-DESeqDataSetFromMatrix(countData = round(new2), colData = meta, design = ~Cat)
+View(counts(dds))
+dds <- estimateSizeFactors(dds)
+sizeFactors(dds)
+normalized_counts <- counts(dds, normalized=TRUE)
+write.table(normalized_counts, file="normalized_counts.txt", sep="\t", quote=F, col.names=NA)
+
+#test1<-read.table(file = "11424.8.206633.TCATCAC-GGTGATG.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test2<-read.table(file = "11424.8.206633.CGTAGGT-AACCTAC.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test3<-read.table(file = "11424.7.206630.GTTCGGT-AACCGAA.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test4<-read.table(file = "11424.7.206630.ACAGCAA-GTTGCTG.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test5<-read.table(file = "11424.6.206627.GGACTGT-AACAGTC.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test6<-read.table(file = "11424.6.206627.ACGGAAC-TGTTCCG.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test7<-read.table(file = "11424.5.206624.TCGCTGT-AACAGCG.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test8<-read.table(file = "11424.5.206624.AGCTAAC-GGTTAGC.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test9<-read.table(file = "11424.4.206621.TGTACAC-GGTGTAC.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test10<-read.table(file = "11424.4.206621.CCAGTGT-AACACTG.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test11<-read.table(file = "11424.3.206618.GCCTTGT-AACAAGG.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test12<-read.table(file = "11424.3.206618.CTGACAC-TGTGTCA.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test13<-read.table(file = "11424.2.206615.TACCAAC-GGTTGGT.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test14<-read.table(file = "11424.2.206615.CGGTTGT-AACAACC.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test15<-read.table(file = "11416.1.206202.ATAGCGG-ACCGCTA.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+#test16<-read.table(file = "11416.1.206202.GAGCTCA-TTGAGCT.filter-MTF.v.final.contigs.bam.cov",header=T,sep='\t')
+test17<-read.table(file = "1108417.scaffolds.cov",header=T,)
+test18<-read.table(file = "1108416.scaffolds.cov",header=T,)
+test19<-read.table(file = "1108415.scaffolds.cov",header=T,)
+test20<-read.table(file = "1108414.scaffolds.cov",header=T,)
+test21<-read.table(file = "1108413.scaffolds.cov",header=T,)
+test22<-read.table(file = "1108412.scaffolds.cov",header=T,)
+test23<-read.table(file = "1108411.scaffolds.cov",header=T,)
+test24<-read.table(file = "1108410.scaffolds.cov",header=T,)
+test25<-read.table(file = "1108409.scaffolds.cov",header=T,)
+test26<-read.table(file = "1108408.scaffolds.cov",header=T,)
+test27<-read.table(file = "1108407.scaffolds.cov",header=T,)
+test28<-read.table(file = "1108406.scaffolds.cov",header=T,)
+test29<-read.table(file = "1108405.scaffolds.cov",header=T,)
+test30<-read.table(file = "1108404.scaffolds.cov",header=T,)
+test31<-read.table(file = "1108403.scaffolds.cov",header=T,)
+test32<-read.table(file = "1108402.scaffolds.cov",header=T,)
+test33<-read.table(file = "1108401.scaffolds.cov",header=T,)
+test34<-read.table(file = "1108400.scaffolds.cov",header=T,)
+test35<-read.table(file = "1108399.scaffolds.cov",header=T,)
+test36<-read.table(file = "1108398.scaffolds.cov",header=T,)
+test37<-read.table(file = "1108397.scaffolds.cov",header=T,)
+test38<-read.table(file = "1108396.scaffolds.cov",header=T,)
+test39<-read.table(file = "1108395.scaffolds.cov",header=T,)
+test40<-read.table(file = "1108394.scaffolds.cov",header=T,)
+#test1_n<-test1[,1:2]
+#test2_n<-test2[,1:2]
+#test3_n<-test3[,1:2]
+#test4_n<-test4[,1:2]
+#test5_n<-test5[,1:2]
+#test6_n<-test6[,1:2]
+#test7_n<-test7[,1:2]
+#test8_n<-test8[,1:2]
+#test9_n<-test9[,1:2]
+#test10_n<-test10[,1:2]
+#test11_n<-test11[,1:2]
+#test12_n<-test12[,1:2]
+#test13_n<-test13[,1:2]
+#test14_n<-test14[,1:2]
+#test15_n<-test15[,1:2]
+#test16_n<-test16[,1:2]
+test17_n<-test17[,1:2]
+test18_n<-test18[,1:2]
+test19_n<-test19[,1:2]
+test20_n<-test20[,1:2]
+test21_n<-test21[,1:2]
+test22_n<-test22[,1:2]
+test23_n<-test23[,1:2]
+test24_n<-test24[,1:2]
+test25_n<-test25[,1:2]
+test26_n<-test26[,1:2]
+test27_n<-test27[,1:2]
+test28_n<-test28[,1:2]
+test29_n<-test29[,1:2]
+test30_n<-test30[,1:2]
+test31_n<-test31[,1:2]
+test32_n<-test32[,1:2]
+test33_n<-test33[,1:2]
+test34_n<-test34[,1:2]
+test35_n<-test35[,1:2]
+test36_n<-test36[,1:2]
+test37_n<-test37[,1:2]
+test38_n<-test38[,1:2]
+test39_n<-test39[,1:2]
+test40_n<-test40[,1:2]
+
+test17_l<-test17[,1:3]
+test18_l<-test18[,1:3]
+test19_l<-test19[,1:3]
+test20_l<-test20[,1:3]
+test21_l<-test21[,1:3]
+test22_l<-test22[,1:3]
+test23_l<-test23[,1:3]
+test24_l<-test24[,1:3]
+test25_l<-test25[,1:3]
+test26_l<-test26[,1:3]
+test27_l<-test27[,1:3]
+test28_l<-test28[,1:3]
+test29_l<-test29[,1:3]
+test30_l<-test30[,1:3]
+test31_l<-test31[,1:3]
+test32_l<-test32[,1:3]
+test33_l<-test33[,1:3]
+test34_l<-test34[,1:3]
+test35_l<-test35[,1:3]
+test36_l<-test36[,1:3]
+test37_l<-test37[,1:3]
+test38_l<-test38[,1:3]
+test39_l<-test39[,1:3]
+test40_l<-test40[,1:3]
+
+test17_l<-test17_l[,-2]
+test18_l<-test18_l[,-2]
+test19_l<-test19_l[,-2]
+test20_l<-test20_l[,-2]
+test21_l<-test21_l[,-2]
+test22_l<-test22_l[,-2]
+test23_l<-test23_l[,-2]
+test24_l<-test24_l[,-2]
+test25_l<-test25_l[,-2]
+test26_l<-test26_l[,-2]
+test27_l<-test27_l[,-2]
+test28_l<-test28_l[,-2]
+test29_l<-test29_l[,-2]
+test30_l<-test30_l[,-2]
+test31_l<-test31_l[,-2]
+test32_l<-test32_l[,-2]
+test33_l<-test33_l[,-2]
+test34_l<-test34_l[,-2]
+test35_l<-test35_l[,-2]
+test36_l<-test36_l[,-2]
+test37_l<-test37_l[,-2]
+test38_l<-test38_l[,-2]
+test39_l<-test39_l[,-2]
+test40_l<-test40_l[,-2]
+
+
+
+all_cov<-left_join(test19_n,test17_n,by="ID") %>%
+  #left_join(.,test2_n, by="ID") %>%
+  #left_join(.,test3_n, by="ID") %>%
+  #left_join(.,test4_n, by="ID") %>%
+  #left_join(.,test5_n, by="ID") %>%
+  #left_join(.,test6_n, by="ID") %>%
+  #left_join(.,test7_n, by="ID") %>%
+  #left_join(.,test8_n, by="ID") %>%
+  #left_join(.,test9_n, by="ID") %>%
+  #left_join(.,test10_n, by="ID") %>%
+  #left_join(.,test11_n, by="ID") %>%
+  #left_join(.,test12_n, by="ID") %>%
+  #left_join(.,test13_n, by="ID") %>%
+#left_join(.,test14_n, by="ID") %>%
+#left_join(.,test15_n, by="ID") %>%
+#left_join(.,test16_n, by="ID") %>%
+  left_join(.,test18_n, by="ID") %>%
+  left_join(.,test20_n, by="ID") %>%
+  left_join(.,test21_n, by="ID") %>%
+  left_join(.,test22_n, by="ID") %>%
+  left_join(.,test23_n, by="ID") %>%
+  left_join(.,test24_n, by="ID") %>%
+  left_join(.,test25_n, by="ID") %>%
+  left_join(.,test26_n, by="ID") %>%
+  left_join(.,test27_n, by="ID") %>%
+  left_join(.,test28_n, by="ID") %>%
+  left_join(.,test29_n, by="ID") %>%
+  left_join(.,test30_n, by="ID") %>%
+  left_join(.,test31_n, by="ID") %>%
+  left_join(.,test32_n, by="ID") %>%
+  left_join(.,test33_n, by="ID") %>%
+  left_join(.,test34_n, by="ID") %>%
+  left_join(.,test35_n, by="ID") %>%
+  left_join(.,test36_n, by="ID") %>%
+  left_join(.,test37_n, by="ID") %>%
+  left_join(.,test38_n, by="ID") %>%
+  left_join(.,test39_n, by="ID") %>%
+  left_join(.,test40_n, by="ID")
+
+length<-left_join(test19_l,test17_l,by="ID") %>%
+  #left_join(.,test2_l, by="ID") %>%
+  #left_join(.,test3_l, by="ID") %>%
+  #left_join(.,test4_l, by="ID") %>%
+  #left_join(.,test5_l, by="ID") %>%
+  #left_join(.,test6_l, by="ID") %>%
+  #left_join(.,test7_l, by="ID") %>%
+  #left_join(.,test8_l, by="ID") %>%
+  #left_join(.,test9_l, by="ID") %>%
+  #left_join(.,test10_l, by="ID") %>%
+  #left_join(.,test11_l, by="ID") %>%
+  #left_join(.,test12_l, by="ID") %>%
+#left_join(.,test13_l, by="ID") %>%
+#left_join(.,test14_l, by="ID") %>%
+#left_join(.,test15_l, by="ID") %>%
+#left_join(.,test16_l, by="ID") %>%
+left_join(.,test18_l, by="ID") %>%
+  left_join(.,test20_l, by="ID") %>%
+  left_join(.,test21_l, by="ID") %>%
+  left_join(.,test22_l, by="ID") %>%
+  left_join(.,test23_l, by="ID") %>%
+  left_join(.,test24_l, by="ID") %>%
+  left_join(.,test25_l, by="ID") %>%
+  left_join(.,test26_l, by="ID") %>%
+  left_join(.,test27_l, by="ID") %>%
+  left_join(.,test28_l, by="ID") %>%
+  left_join(.,test29_l, by="ID") %>%
+  left_join(.,test30_l, by="ID") %>%
+  left_join(.,test31_l, by="ID") %>%
+  left_join(.,test32_l, by="ID") %>%
+  left_join(.,test33_l, by="ID") %>%
+  left_join(.,test34_l, by="ID") %>%
+  left_join(.,test35_l, by="ID") %>%
+  left_join(.,test36_l, by="ID") %>%
+  left_join(.,test37_l, by="ID") %>%
+  left_join(.,test38_l, by="ID") %>%
+  left_join(.,test39_l, by="ID") %>%
+  left_join(.,test40_l, by="ID")
+
+
+rownames(all_cov)<-all_cov$ID
+all_cov<-all_cov[,-1]
+all_cov<-all_cov %>% replace(is.na(.),0)
+colnames(all_cov)
+tail(all_cov)
+meta<-read.csv(file = "~/Desktop/meta.csv",header=T)
+dds<-DESeqDataSetFromMatrix(countData = round(all_cov), colData = meta, design = ~Cat)
+dds <- estimateSizeFactors(dds)
+sizeFactors(dds)
+normalized_counts <- counts(dds, normalized=TRUE)
+#write.table(normalized_counts, file="~/Desktop/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
+scaffolds<-read.csv("~/Desktop/scaffolds2.csv")
+normalized_counts2<-as.data.frame(normalized_counts)
+
+normalized_counts2<-normalized_counts2 %>%
+  mutate(ID=rownames(normalized_counts2))
+head(normalized_counts2)
+needed<-left_join(x=scaffolds, y=normalized_counts2, by="ID")
+output<-left_join(x=needed, y=length, by="ID")
+write.table(output, file="~/Desktop/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
+
+Coverage.txt
+Displaying Coverage.txt. 
