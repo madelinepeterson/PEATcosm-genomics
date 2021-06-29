@@ -579,6 +579,16 @@ Creating an aligment file (aln) for the combined PEAT hgcA sequences
 ModelTesting with fastree (only three models)
   modeltest-ng -i corrected_70_McD_hgcAB_combined_MX.out -o corrected_70_McD_hgcAB_modeltest -t ml -d aa -m WAG,JTT,LG 
   
+________________________________________________________________________________
+
+##PHYLOGENY HGCA PEAT (181) AND MCD (904)
+
+#create new fasta file of sequences in nano by pasting list into new fileinto McDaniel folder: MCD_PEAT_hgcA_fasta
+
+conda activate phylogeny
+muscle -in MCD_PEAT_hgcA_fasta -out MCD_PEAT_hgcA.aln
+muscle -in MCD_PEAT_hgcA_fasta -phyiout MCD_PEAT_hgcA.out -physout MCD_PEAT_hgcA.out
+modeltest-ng -i MCD_PEAT_hgcA.out -o MCD_PEAT_hgcA_modeltest -t ml -d aa -m WAG,JTT,LG 
 
 
 
