@@ -159,6 +159,27 @@ for hit in $(cat test_hgcB-names.txt); do grep -w -A 1 $hit test_MetaG_T-contig_
 
 #Pull the contig ID for the hgcB hits using full ID
   for hit in $(cat test_hgcB-names.txt); do grep -w $hit ~/data/HgcAB/Maddy_gff/MetaG_T.gff|cut -d$'\t' -f 1 ; done > test_Contig_ID_of_HgcB_contigs.txt
+  
+##PHYLOGENY HGCA PEAT (181) AND MCD (904)
+
+conda activate phylogeny
+muscle -in MCD_PEAT_hgcA_fasta -out MCD_PEAT_hgcA.aln
+muscle -in MCD_PEAT_hgcA_fasta -phyiout MCD_PEAT_hgcA.out -physout MCD_PEAT_hgcA.out
+modeltest-ng -i MCD_PEAT_hgcA.out -o MCD_PEAT_hgcA_modeltest -t ml -d aa -m WAG,JTT,LG 
+
+#MODELTEST OUTPUT (McDaniel folder)
+Execution results written to MCD_PEAT_hgcA_modeltest.out
+Starting tree written to MCD_PEAT_hgcA_modeltest.tree
+
+Partition 1/1:
+                         Model         Score        Weight
+----------------------------------------------------------
+       BIC           LG+I+G4+F   627026.5393        1.0000
+       AIC           LG+I+G4+F   616608.2180        1.0000
+      AICc               LG+G4 10024458.2707        1.0000
+
+#CREATING TREE
+fasttree -lg -gamma MCD_PEAT_hgcA.aln  > MCD_PEAT_hgcA_tree.nwk
     
     
 
