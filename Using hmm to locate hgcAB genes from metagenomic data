@@ -604,9 +604,21 @@ Partition 1/1:
 #CREATING TREE
 fasttree -lg -gamma MCD_PEAT_hgcA.aln  > MCD_PEAT_hgcA_tree.nwk
 
+_____________________________________________________________________
+#CO-ASSEMBLY MAG HMM
 
+#Concatenates metaG .faa files into a single file
+  cat *proteins.faa > alldepth_MAG.faa
+  
+#Converts multi-line .faa files for MAGs into single lines for each sequence entry
+ awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' alldepth_MAG.faa > alldepth_MAG_oneline.faa
 
+#hgcA hmm ran on all metaG+metaT fasta
+  hmmsearch -E 1e-30 --tblout alldepth_MAG_hgca_hits.out hgcA_duplicate.hmm alldepth_MAG_oneline.faa
 
+#converting the hits from .out to .csv for readability
+#note: the hmmscan command is in the wider HgcAB
+  bash hmmscan_rough_parse_duplicate.sh alldepth_MAG_hgca_hits.out alldepth_MAG_hgca_hits.csv
 
 
 
