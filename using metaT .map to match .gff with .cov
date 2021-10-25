@@ -1,0 +1,179 @@
+## Install required packages
+install.packages("tidyverse")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("DESeq2")
+
+## Set working directory
+setwd("~/Desktop/HgcA_MetaT/From_Drive")
+
+## Initialize Libraries
+library(tidyverse)
+library(DESeq2)
+
+## Import coverage files
+Cov_135913<-read_tsv("11416.1.206202.ATAGCGG-ACCGCTA.filter-MTF.v.final.contigs.bam.cov")
+Cov_127741<-read_tsv("11416.1.206202.GAGCTCA-TTGAGCT.filter-MTF.v.final.contigs.bam.cov")
+Cov_135926<-read_tsv("11424.2.206615.CGGTTGT-AACAACC.filter-MTF.v.final.contigs.bam.cov")
+Cov_127742<-read_tsv("11424.2.206615.TACCAAC-GGTTGGT.filter-MTF.v.final.contigs.bam.cov")
+Cov_127743<-read_tsv("11424.3.206618.CTGACAC-TGTGTCA.filter-MTF.v.final.contigs.bam.cov")
+Cov_135914<-read_tsv("11424.3.206618.GCCTTGT-AACAAGG.filter-MTF.v.final.contigs.bam.cov")
+Cov_135915<-read_tsv("11424.4.206621.CCAGTGT-AACACTG.filter-MTF.v.final.contigs.bam.cov")
+Cov_127744<-read_tsv("11424.4.206621.TGTACAC-GGTGTAC.filter-MTF.v.final.contigs.bam.cov")
+Cov_127745<-read_tsv("11424.5.206624.AGCTAAC-GGTTAGC.filter-MTF.v.final.contigs.bam.cov")
+Cov_135916<-read_tsv("11424.5.206624.TCGCTGT-AACAGCG.filter-MTF.v.final.contigs.bam.cov")
+Cov_127746<-read_tsv("11424.6.206627.ACGGAAC-TGTTCCG.filter-MTF.v.final.contigs.bam.cov")
+Cov_135917<-read_tsv("11424.6.206627.GGACTGT-AACAGTC.filter-MTF.v.final.contigs.bam.cov")
+Cov_127747<-read_tsv("11424.7.206630.ACAGCAA-GTTGCTG.filter-MTF.v.final.contigs.bam.cov")
+Cov_135919<-read_tsv("11424.7.206630.GTTCGGT-AACCGAA.filter-MTF.v.final.contigs.bam.cov")
+Cov_135918<-read_tsv("11424.8.206633.CGTAGGT-AACCTAC.filter-MTF.v.final.contigs.bam.cov")
+Cov_127748<-read_tsv("11424.8.206633.TCATCAC-GGTGATG.filter-MTF.v.final.contigs.bam.cov")
+
+## Rename headers such that the average fold includes the MetaT id
+names(Cov_135913)<-c("ID","flag","multi","len","Avg_fold_135913","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127741)<-c("ID","flag","multi","len","Avg_fold_127741","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135926)<-c("ID","flag","multi","len","Avg_fold_135926","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127742)<-c("ID","flag","multi","len","Avg_fold_127742","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127743)<-c("ID","flag","multi","len","Avg_fold_127743","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135914)<-c("ID","flag","multi","len","Avg_fold_135914","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135915)<-c("ID","flag","multi","len","Avg_fold_135915","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127744)<-c("ID","flag","multi","len","Avg_fold_127744","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127745)<-c("ID","flag","multi","len","Avg_fold_127745","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135916)<-c("ID","flag","multi","len","Avg_fold_135916","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127746)<-c("ID","flag","multi","len","Avg_fold_127746","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135917)<-c("ID","flag","multi","len","Avg_fold_135917","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127747)<-c("ID","flag","multi","len","Avg_fold_127747","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135919)<-c("ID","flag","multi","len","Avg_fold_135919","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_135918)<-c("ID","flag","multi","len","Avg_fold_135918","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+names(Cov_127748)<-c("ID","flag","multi","len","Avg_fold_127748","Length","Ref_GC","Covered_percent","Covered_bases","Plus_reads","Minus_reads","Read_GC","Median_fold","Std_Dev")
+
+## Select only the contig ID and the average fold
+Cov_135913<-Cov_135913%>%
+  mutate(Cov_135913,RPKM_135913=(Avg_fold_135913/((Length/1000)*(sum(Cov_135913$Avg_fold_135913)/1000000))))%>%
+  select(ID,Avg_fold_135913,RPKM_135913)
+Cov_127741<-Cov_127741%>%
+  mutate(Cov_127741,RPKM_127741=(Avg_fold_127741/((Length/1000)*(sum(Cov_127741$Avg_fold_127741)/1000000))))%>%
+  select(ID,Avg_fold_127741,RPKM_127741)
+Cov_135926<-Cov_135926%>%
+  mutate(Cov_135926,RPKM_135926=(Avg_fold_135926/((Length/1000)*(sum(Cov_135926$Avg_fold_135926)/1000000))))%>%
+  select(ID,Avg_fold_135926,RPKM_135926)
+Cov_127742<-Cov_127742%>%
+  mutate(Cov_127742,RPKM_127742=(Avg_fold_127742/((Length/1000)*(sum(Cov_127742$Avg_fold_127742)/1000000))))%>%
+  select(ID,Avg_fold_127742,RPKM_127742)
+Cov_127743<-Cov_127743%>%
+  mutate(Cov_127743,RPKM_127743=(Avg_fold_127743/((Length/1000)*(sum(Cov_127743$Avg_fold_127743)/1000000))))%>%
+  select(ID,Avg_fold_127743,RPKM_127743)
+Cov_135914<-Cov_135914%>%
+  mutate(Cov_135914,RPKM_135914=(Avg_fold_135914/((Length/1000)*(sum(Cov_135914$Avg_fold_135914)/1000000))))%>%
+  select(ID,Avg_fold_135914,RPKM_135914)
+Cov_135915<-Cov_135915%>%
+  mutate(Cov_135915,RPKM_135915=(Avg_fold_135915/((Length/1000)*(sum(Cov_135915$Avg_fold_135915)/1000000))))%>%
+  select(ID,Avg_fold_135915,RPKM_135915)
+Cov_127744<-Cov_127744%>%
+  mutate(Cov_127744,RPKM_127744=(Avg_fold_127744/((Length/1000)*(sum(Cov_127744$Avg_fold_127744)/1000000))))%>%
+  select(ID,Avg_fold_127744,RPKM_127744)
+Cov_127745<-Cov_127745%>%
+  mutate(Cov_127745,RPKM_127745=(Avg_fold_127745/((Length/1000)*(sum(Cov_127745$Avg_fold_127745)/1000000))))%>%
+  select(ID,Avg_fold_127745,RPKM_127745)
+Cov_135916<-Cov_135916%>%
+  mutate(Cov_135916,RPKM_135916=(Avg_fold_135916/((Length/1000)*(sum(Cov_135916$Avg_fold_135916)/1000000))))%>%
+  select(ID,Avg_fold_135916,RPKM_135916)
+Cov_127746<-Cov_127746%>%
+  mutate(Cov_127746,RPKM_127746=(Avg_fold_127746/((Length/1000)*(sum(Cov_127746$Avg_fold_127746)/1000000))))%>%
+  select(ID,Avg_fold_127746,RPKM_127746)
+Cov_135917<-Cov_135917%>%
+  mutate(Cov_135917,RPKM_135917=(Avg_fold_135917/((Length/1000)*(sum(Cov_135917$Avg_fold_135917)/1000000))))%>%
+  select(ID,Avg_fold_135917,RPKM_135917)
+Cov_127747<-Cov_127747%>%
+  mutate(Cov_127747,RPKM_127747=(Avg_fold_127747/((Length/1000)*(sum(Cov_127747$Avg_fold_127747)/1000000))))%>%
+  select(ID,Avg_fold_127747,RPKM_127747)
+Cov_135919<-Cov_135919%>%
+  mutate(Cov_135919,RPKM_135919=(Avg_fold_135919/((Length/1000)*(sum(Cov_135919$Avg_fold_135919)/1000000))))%>%
+  select(ID,Avg_fold_135919,RPKM_135919)
+Cov_135918<-Cov_135918%>%
+  mutate(Cov_135918,RPKM_135918=(Avg_fold_135918/((Length/1000)*(sum(Cov_135918$Avg_fold_135918)/1000000))))%>%
+  select(ID,Avg_fold_135918,RPKM_135918)
+Cov_127748<-Cov_127748%>%
+  mutate(Cov_127748,RPKM_127748=(Avg_fold_127748/((Length/1000)*(sum(Cov_127748$Avg_fold_127748)/1000000))))%>%
+  select(ID,Avg_fold_127748,RPKM_127748)
+
+
+## Merge all of the contig coverage files into a single file
+All<-full_join(Cov_135913,Cov_127741)
+All<-full_join(All,Cov_135926)
+All<-full_join(All,Cov_127742)
+All<-full_join(All,Cov_127743)
+All<-full_join(All,Cov_135914)
+All<-full_join(All,Cov_135915)
+All<-full_join(All,Cov_127744)
+All<-full_join(All,Cov_127745)
+All<-full_join(All,Cov_135916)
+All<-full_join(All,Cov_127746)
+All<-full_join(All,Cov_135917)
+All<-full_join(All,Cov_127747)
+All<-full_join(All,Cov_135919)
+All<-full_join(All,Cov_135918)
+All<-full_join(All,Cov_127748)
+All<-column_to_rownames(All,var="ID")
+
+## Replace NAs with 0 counts
+All<-All%>%
+  replace(is.na(.), 0)
+
+RPKM<-select(All,"RPKM_135913","RPKM_127741","RPKM_135926","RPKM_127742","RPKM_127743","RPKM_135914","RPKM_135915","RPKM_127744","RPKM_127745","RPKM_135916","RPKM_127746","RPKM_135917","RPKM_127747","RPKM_135919","RPKM_135918","RPKM_127748")
+Fold<-select(All,"Avg_fold_135913","Avg_fold_127741","Avg_fold_135926","Avg_fold_127742","Avg_fold_127743","Avg_fold_135914","Avg_fold_135915","Avg_fold_127744","Avg_fold_127745","Avg_fold_135916","Avg_fold_127746","Avg_fold_135917","Avg_fold_127747","Avg_fold_135919","Avg_fold_135918","Avg_fold_127748")
+## Import metadata
+meta<-read_csv("meta.csv")
+
+## Create DESeq Object
+dds<-DESeqDataSetFromMatrix(countData = round(Fold), colData = meta, design = ~bin)
+## View the counts from the DESeq object
+View(counts(dds))
+
+## Estiate size factors for the metaT counts
+dds <- estimateSizeFactors(dds)
+sizeFactors(dds)
+
+## Determine normalized counts using DESEq normaliz
+normalized_counts <- counts(dds, normalized=TRUE)
+
+## Import mapping files from JGI
+map_127741<-read_tsv("127741.assembled.names_map")
+map_127742<-read_tsv("127742.assembled.names_map")
+map_127743<-read_tsv("127743.assembled.names_map")
+map_127744<-read_tsv("127744.assembled.names_map")
+map_127745<-read_tsv("127745.assembled.names_map")
+map_127746<-read_tsv("127746.assembled.names_map")
+map_127747<-read_tsv("127747.assembled.names_map")
+map_127748<-read_tsv("127748.assembled.names_map")
+map_135913<-read_tsv("135913.assembled.names_map")
+map_135914<-read_tsv("135914.assembled.names_map")
+map_135915<-read_tsv("135915.assembled.names_map")
+map_135916<-read_tsv("135916.assembled.names_map")
+map_135918<-read_tsv("135918.assembled.names_map")
+map_135919<-read_tsv("135919.assembled.names_map")
+map_135926<-read_tsv("135926.assembled.names_map")
+
+## Merg mapping files into a single mapping file
+Map<-bind_rows(map_127741,map_127742,map_127743,map_127744,map_127745,map_127746,map_127747,map_127748,map_135913,map_135914,map_135915,map_135916,map_135918,map_135919,map_135926)
+
+## Import list of HgcA Transcripts
+List<-read_csv("Gene_list.csv")
+## Extract all of the contig names that are from the HgcA transcripts
+Contigs<-left_join(List,Map)
+
+## Convert the normalized counts table into a dataframe
+NC2<-rownames_to_column(as.data.frame(normalized_counts), var="Name")
+RPKM2<-rownames_to_column(as.data.frame(RPKM), var="Name")
+## Extract the normalized counts that match the HgcA transcrpts.
+Contig_coverage<-left_join(Contigs,NC2)
+Contig_RPKM<-left_join(Contigs,RPKM2)
+## Write as a .csv
+write_csv(Contig_coverage,"MetaT_contig_coverage.csv")
+write_csv(Contig_RPKM,"MetaT_contig_RPKM.csv")
+write_csv(NC2,"Normalized_counts.csv")
+write_csv(RPKM2,"All_RPKM.csv")
+
+
+
+
