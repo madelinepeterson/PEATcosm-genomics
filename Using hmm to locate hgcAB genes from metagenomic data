@@ -620,17 +620,45 @@ _____________________________________________________________________
 #note: the hmmscan command is in the wider HgcAB
   bash hmmscan_rough_parse_duplicate.sh alldepth_MAG_hgca_hits.out alldepth_MAG_hgca_hits.csv
 
+#FOR 10CM DEPTH
+
+#hgcA hmm ran on all metaG+metaT fasta
+  hmmsearch -E 1e-30 --tblout 10depth_MAG_hgca_hits.out hgcA_duplicate.hmm Ga0455669_proteins.faa
+
+#converting the hits from .out to .csv for readability
+#note: the hmmscan command is in the wider HgcAB
+  bash hmmscan_rough_parse_duplicate.sh 10depth_MAG_hgca_hits.csv 10depth_MAG_hgca_hits.out
+
+#Converts multi-line .faa files for MAGs into single lines for each sequence entry
+ awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' Ga0455669_proteins.faa > Ga0455669_proteins_oneline.faa
+
+hmmsearch -E 1e-30 --tblout 10depth_MAG_hgca_hits.out hgcA_duplicate.hmm Ga0455669_proteins_oneline.faa
+
+bash hmmscan_rough_parse_duplicate.sh 10depth_MAG_hgca_hits2.csv 10depth_MAG_hgca_hits2.out
+
+
+#FOR 30CM DEPTH
+
+#hgcA hmm ran 
+  hmmsearch -E 1e-30 --tblout 30depth_MAG_hgca_hits.out hgcA_duplicate.hmm Ga0455670_proteins.faa
+
+#converting the hits from .out to .csv for readability
+#note: the hmmscan command is in the wider HgcAB
+  bash hmmscan_rough_parse_duplicate.sh 30depth_MAG_hgca_hits.csv 30depth_MAG_hgca_hits.out
+
+#Converts multi-line .faa files for MAGs into single lines for each sequence entry
+ awk '!/^>/ { printf "%s", $0; n = "\n" } /^>/ { print n $0; n = "" } END { printf "%s", n }' Ga0455669_proteins.faa > Ga0455669_proteins_oneline.faa
 
 
 
+#FOR 60CM DEPTH
 
+#hgcA hmm ran 
+  hmmsearch -E 1e-30 --tblout 60depth_MAG_hgca_hits.out hgcA_duplicate.hmm Ga0455671_proteins.faa
 
-
-
-
-
-
-
+#converting the hits from .out to .csv for readability
+#note: the hmmscan command is in the wider HgcAB
+  bash hmmscan_rough_parse_duplicate.sh 60depth_MAG_hgca_hits.csv 60depth_MAG_hgca_hits.out
 
 
 
