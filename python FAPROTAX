@@ -47,7 +47,9 @@ ERROR: Unknown column '0' specified for row names
   python collapse_table.py -i FAPROTAX_table3_newname.txt -o function_table5.tsv -g FAPROTAX.txt -d "taxonomy" -r report5.txt
   
   
-  
+##FAPROTAX for MAG BLASTed new taxa assignments (which excludes those [hgcA hits/bins] previously with functional assignments along with those that did not recieve a new assignment from the MAG BLAST)
+  python collapse_table.py -i FAPROTAX_table1_MAG_BLAST_newonly.txt -o function_table1_MAG.tsv -g FAPROTAX_duplicate.txt -d "taxonomy" -r report1_MAG.txt
+
   
   
   
